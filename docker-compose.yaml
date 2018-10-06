@@ -1,0 +1,24 @@
+--- 
+services: 
+  notehub: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: notehub
+    volumes: 
+      - ${CLOUDJOURNAL}:/root/_cloudjournal
+      - ${LOCALJOURNAL}:/root/_localjournal
+      - ${CLOUDNOTES}:/root/_cloudnotes
+      - ${LOCALNOTES}:/root/_localnotes
+      - ${SCRIPTS}:/root/_scripts
+      - ${EXPORTS}:/root/__exports
+    tty: true
+    entrypoint: /bin/zsh
+version: "3.1"
+volumes: 
+  _cloudjournal: ~
+  _localjournal: ~
+  _cloudnotes: ~
+  _localnotes: ~
+  _scripts: ~
+  __exports: ~  
