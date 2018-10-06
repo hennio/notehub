@@ -28,7 +28,7 @@ when you export to PDF, this is the location to look in (for both local and clou
 
 Within the folder: 
 
-docker container run notehub
+docker-compose run notehub
 
 # LIST OF COMMANDS #
 
