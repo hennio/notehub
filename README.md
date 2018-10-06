@@ -1,3 +1,5 @@
+Note: this project is WIP. 
+
 # ABOUT #
 Notehub is a central point to create journals and notes. Synced on your own locations. 
 
