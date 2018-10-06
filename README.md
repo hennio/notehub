@@ -42,3 +42,6 @@ export2pdf
 # TODO #
 
 - Create documentation 
+- Localization
+- Config: change editor to nano
+- Config: make it possible to customize your notes / journals.
