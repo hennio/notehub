@@ -1,0 +1,12 @@
+#!/bin/bash
+
+datestamp=$(date +"%Y%m%d")
+
+if [ -z $1 ] 
+then 
+	echo "Voer een titel in (makenote [titel])"
+else
+	filen="$datestamp-$1.md"
+	vim $HOME/personal_logs/notes/$filen
+fi
+

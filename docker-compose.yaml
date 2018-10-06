@@ -11,6 +11,7 @@ services:
       - ${CLOUDNOTES}:/root/_cloudnotes
       - ${LOCALNOTES}:/root/_localnotes
       - ${SCRIPTS}:/root/_scripts
+      - ./notehubscripts:/root/notehubscripts
       - ${EXPORTS}:/root/__exports
     tty: true
     entrypoint: /bin/zsh

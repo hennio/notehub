@@ -1,0 +1,12 @@
+#!/bin/bash
+
+datestamp=$(date +"%Y%m%d")
+
+if [ -z $1 ] 
+then 
+		filen="$datestamp.md"
+else
+		filen="$datestamp-$1.md"
+fi
+
+vim $HOME/personal_logs/journals/$filen

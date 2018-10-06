@@ -1,0 +1,43 @@
+#!/bin/bash
+
+. functions.sh
+
+echo $(echoOS) # geef even aan welk OS er is gedetecteerd
+
+cd $HOME/personal_logs/journals/
+
+FILES=*.md
+
+touch temp.markdown
+echo "%	Journaal Henrique" >> temp.markdown
+echo " " >> temp.markdown
+
+for f in $FILES
+
+		do
+		
+		#lees de bestandsnaam en splits hem op -
+		IFS='-' read -r -a array <<< "$f"
+
+		#eerste in de array is de datum en extentie
+		datumplusextentie="${array[0]}"
+
+		IFS='.' read -r -a datumsplit <<< "$datumplusextentie"
+		datum="${datumsplit[0]}"
+
+		#titel is de tweede
+		titel="${array[1]}"
+
+		datumstring=$(convertDateblockToString $datum)
+		
+		echo "## $datumstring ##" >> temp.markdown
+		cat $f >> temp.markdown
+		echo " " >> temp.markdown
+		echo "- - -" >> temp.markdown
+		echo " " >> temp.markdown
+done
+mv temp.markdown temp.md
+pandoc temp.md -o journal.pdf
+mv journal.pdf $HOME/personal_logs/exports/
+rm temp.md
+echo 'done'

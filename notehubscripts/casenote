@@ -1,0 +1,78 @@
+#!/bin/bash
+IFS=$'\n'
+
+function create_file {
+datum=$(date +"%Y%m%d")
+
+read -p "Geef BVH-nummer: " bvhnummer
+read -p "Geef zaaknaam: " zaaknaam
+cp "/root/_localnotes/0_template.md" "/root/_localnotes/$datum - $bvhnummer - $zaaknaam.md"
+vim "/root/_localnotes/$datum - $bvhnummer - $zaaknaam.md"
+
+}
+
+
+if [ -z $1 ] 
+then 
+	echo "Voer een kenmerk (BVH-nummer oid) in.."
+else
+#	FILESHEN=($(ls "$HOME/work_cases" | grep -i $1))
+	FILESHEN=($(find "$HOME/_localnotes" -iname "*$1*.md"))
+	AANT=${#FILESHEN[*]}	
+	if [ $AANT = 0 ]
+	then
+		read -p "Geen bestanden gevonden, nieuwe aanmaken? (j/n): " antwoord
+		while true
+		do
+				case $antwoord in
+						[yYjJ]* ) create_file 
+										break;;
+						[nN]* ) echo "Beeindigd.."
+								exit;;
+						* ) echo "Alleen j/n"
+				esac
+		done
+	elif [ $AANT = 1 ]
+	then
+		echo "Bestand gevonden: ${FILESHEN[0]}"
+		read -p "Open dit bestand nu? (j/n): " antwoord
+		while true
+		do
+				case $antwoord in
+				     	[yYjJ]* )	vim "${FILESHEN[0]}"
+								    break;;
+						[nN]* ) 	echo "Beeindigd.."
+								    exit;;
+						* ) echo "Alleen J/N"
+				esac
+		done
+	else
+		teller=1
+		echo "$AANT bestanden gevonden;"
+		echo ""
+		for f in "${FILESHEN[@]}"
+			do
+			echo "$teller: $f"
+			((teller++))
+		done
+		echo ""
+		read -p "Welke moet worden geopend? (n = stop): " antwoord
+		while true
+		do
+				case $antwoord in
+						[nN]* ) 		echo "Beeindigd.."
+										exit;;
+						* )				vim "${FILESHEN[$antwoord]}"	
+						                break;;
+				esac
+		done
+	fi
+
+#	if [ "$(grep $HOME/work_cases/*$1*.md)"  ]
+#	then
+#	 	echo "File found"
+#	else
+#		echo "Not found"
+#	fi
+fi
+

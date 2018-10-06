@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -e "$1" ]
+then
+	#splits bestandsnaam	
+	IFS="." read -r -a filenamesplit <<< "$1"
+	
+	pandoc "$filenamesplit.md" -o "$filenamesplit.pdf"
+	mv "$filenamesplit.pdf" $HOME/Desktop/
+	echo 'Export naar bureaublad voltooid..'
+else
+	echo "Bestandsnaam opgeven"
+fi
